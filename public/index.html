@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <script type="module" src="bundle.js"></script>
@@ -23,4 +24,41 @@
 
     <md-outlined-button>Back</md-outlined-button>
     <md-filled-button>Next</md-filled-button>
+
+    <md-circular-progress value="0"></md-circular-progress>
+    <md-circular-progress indeterminate></md-circular-progress>
+
+    <md-linear-progress indeterminate></md-linear-progress>
+    <md-linear-progress value="0"></md-linear-progress>
+
+    <script>
+        let progressValue = 0; // Valor inicial del progreso
+        const updateInterval = 40; // Intervalo de actualización en ms
+        const duration = 4000; // Duración total de la animación en ms
+        const increment = updateInterval / duration; // Incremento por cada intervalo
+
+        function updateProgressElements(value) {
+            // Seleccionar todos los elementos con atributo `value`
+            const progressElements = document.querySelectorAll('md-circular-progress[value], md-linear-progress[value]');
+            progressElements.forEach(el => {
+                el.setAttribute('value', value); // Actualizar el valor
+            });
+        }
+
+        function animateProgress() {
+            progressValue += increment; // Incrementar el valor del progreso
+
+            if (progressValue >= 1) {
+                // Si el valor del progreso es >= 1, reiniciar
+                progressValue = 0;
+            }
+
+            updateProgressElements(progressValue); // Actualizar elementos de progreso
+        }
+
+        // Iniciar la animación
+        setInterval(animateProgress, updateInterval);
+    </script>
 </body>
+
+</html>
